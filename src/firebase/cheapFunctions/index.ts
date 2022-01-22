@@ -1,9 +1,19 @@
+import { templatesCollection } from './../index';
 // The way this project uses firestore is unsafe and defiantly NOT RECOMMENDED.
 // I would much rather secure api with cloud functions but the client is cheap and doesn't want to pay for them :(
 
 import { firestore, toCreateCollection } from './../index';
 import { TypeCount } from '../../../functions/src/dto/TypeCount';
-import { doc, getDocFromServer, increment, updateDoc } from '@firebase/firestore';
+import { doc, getDocFromServer, increment, setDoc, updateDoc } from '@firebase/firestore';
+import A from "../../forms/A.json"
+import B from "../../forms/B.json"
+import C from "../../forms/C.json"
+
+export const uploadMyForms = async (): Promise<void> => {
+    await setDoc(doc(firestore, templatesCollection.id, "A"), A);
+    await setDoc(doc(firestore, templatesCollection.id, "B"), B);
+    await setDoc(doc(firestore, templatesCollection.id, "C"), C);
+}
 
 export const questionersLeft = async (): Promise<TypeCount> => {
     const docRef = doc(firestore, toCreateCollection.id, "typeCount");
@@ -14,7 +24,7 @@ export const questionersLeft = async (): Promise<TypeCount> => {
     return docSnap.data() as TypeCount;
 }
 
-export const getQuestioner = async () : Promise<string | null> => {
+export const getQuestionerId = async () : Promise<string | null> => {
     const lefCount = await questionersLeft();
     const counts = Object.values(lefCount) as number[];
 
@@ -38,3 +48,9 @@ export const getQuestioner = async () : Promise<string | null> => {
 
     return null;
 }
+
+export const loadQuestioner = async (id: string): Promise<unknown> => {
+    const docRef = doc(firestore, templatesCollection.id, id);
+    const docSnap = await getDocFromServer(docRef);
+    return docSnap.data();
+};

@@ -1,0 +1,42 @@
+{
+  "title": "Kwestionariusz C",
+  "logoPosition": "right",
+  "pages": [
+    {
+      "name": "page1",
+      "elements": [
+        {
+          "type": "text",
+          "name": "question1",
+          "title": "Ile masz lat",
+          "isRequired": true,
+          "inputType": "number",
+          "min": 10,
+          "max": 200
+        },
+        {
+          "type": "signaturepad",
+          "name": "question2",
+          "title": "Podpis"
+        }
+      ],
+      "title": "Pytania osobiste"
+    },
+    {
+      "name": "page2",
+      "elements": [
+        {
+          "type": "rating",
+          "name": "question3",
+          "title": "Lody"
+        },
+        {
+          "type": "rating",
+          "name": "question4",
+          "title": "Czekolada"
+        }
+      ],
+      "title": "Co jest pyszne?"
+    }
+  ]
+}

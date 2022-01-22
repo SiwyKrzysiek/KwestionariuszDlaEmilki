@@ -19,5 +19,6 @@ export const firestore = getFirestore();
 
 // Collections
 export const toCreateCollection = collection(firestore, "toCreate");
-export const pending = collection(firestore, "pending");
-export const responses = collection(firestore, "responses");
+export const pendingCollection = collection(firestore, "pending");
+export const responsesCollection = collection(firestore, "responses");
+export const templatesCollection = collection(firestore, "templates");
