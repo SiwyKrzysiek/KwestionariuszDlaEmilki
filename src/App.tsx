@@ -1,9 +1,16 @@
-import { useState } from 'react'
+import { useEffect, useState } from 'react'
 import logo from './logo.svg'
 import './App.css'
+import { TypeCount } from '../functions/src/dto/TypeCount';
+import { questionersLeft } from './firebase/cheapFunctions';
 
 function App() {
   const [count, setCount] = useState(0)
+  const [leftCount, setLeftCount] = useState<TypeCount | undefined>();
+
+  useEffect(() => {
+    questionersLeft().then(setLeftCount);
+  }, []);
 
   return (
     <div className="App">
@@ -19,6 +26,9 @@ function App() {
           Press button if you are excited ^^
         </p>
       </header>
+      <main>
+        {JSON.stringify(leftCount)}
+      </main>
     </div>
   )
 }
