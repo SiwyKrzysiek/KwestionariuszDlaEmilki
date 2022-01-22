@@ -1,10 +1,10 @@
-import { templatesCollection } from './../index';
+import { templatesCollection, responsesCollection } from './../index';
 // The way this project uses firestore is unsafe and defiantly NOT RECOMMENDED.
 // I would much rather secure api with cloud functions but the client is cheap and doesn't want to pay for them :(
 
 import { firestore, toCreateCollection } from './../index';
 import { TypeCount } from '../../../functions/src/dto/TypeCount';
-import { doc, getDocFromServer, increment, setDoc, updateDoc } from '@firebase/firestore';
+import { doc, getDocFromServer, increment, setDoc, updateDoc, addDoc } from '@firebase/firestore';
 import A from "../../forms/A.json"
 import B from "../../forms/B.json"
 import C from "../../forms/C.json"
@@ -54,3 +54,7 @@ export const loadQuestioner = async (id: string): Promise<unknown> => {
     const docSnap = await getDocFromServer(docRef);
     return docSnap.data();
 };
+
+export const saveResponse = (response: unknown) => {
+    return addDoc(responsesCollection, response);
+}
