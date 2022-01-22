@@ -2,7 +2,8 @@ import { useEffect, useState } from 'react'
 import logo from './logo.svg'
 import './App.css'
 import { TypeCount } from '../functions/src/dto/TypeCount';
-import { getQuestioner, questionersLeft } from './firebase/cheapFunctions';
+import { getQuestionerId, loadQuestioner, questionersLeft } from './firebase/cheapFunctions';
+import { Model, Survey } from 'survey-react';
 
 function App() {
   const [count, setCount] = useState(0)
@@ -16,13 +17,25 @@ function App() {
   }
 
   const takeRandomForm = (): Promise<void> =>
-    getQuestioner()
+    getQuestionerId()
       .then(setReceivedQuestioner)
       .then(fetchLeftCount);
 
   useEffect(() => {
     fetchLeftCount();
   }, []);
+
+  const loadForm = async (id: string) => {
+    const model = new Model(await loadQuestioner(id));
+    setModel(model);
+  }
+
+  const [model, setModel] = useState<any>();
+  useEffect(() => {
+    loadForm("A");
+  }, []);
+
+  return !model ? <p>Ładowanie</p> : <Survey model={model} />
 
   return (
     <div className="App">
