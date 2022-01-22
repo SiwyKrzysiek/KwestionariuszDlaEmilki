@@ -23,9 +23,9 @@ export const getQuestioner = async () : Promise<string | null> => {
 
     const takeOne = async (key: string): Promise<string> => {
         const document = doc(firestore, toCreateCollection.id, "typeCount");
-        await updateDoc(document, {
-            key: increment(-1)
-        });
+        const update = {} as any;
+        update[key] = increment(-1);
+        await updateDoc(document, update);
         return key;
     }
 
