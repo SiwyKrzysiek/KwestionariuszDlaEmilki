@@ -15,7 +15,7 @@ export const questionersLeft = async (): Promise<TypeCount> => {
 }
 
 export const getQuestioner = async () : Promise<string | null> => {
-    const lefCount = questionersLeft();
+    const lefCount = await questionersLeft();
     const counts = Object.values(lefCount) as number[];
 
     if (counts.every(c => c <= 0))
