@@ -32,7 +32,7 @@ export const getQuestioner = async () : Promise<string | null> => {
     const maxValue = Math.max(...counts);
     for (const [k, v] of Object.entries(lefCount)) {
         if (v === maxValue) {
-            await takeOne(k)
+            return await takeOne(k)
         }
     }
 
